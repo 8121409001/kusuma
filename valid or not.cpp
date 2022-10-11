@@ -1,15 +1,45 @@
-#include<iostream>
-#include<string.h>
+#include <iostream>
 using namespace std;
+
+int validates(string username)
+{
+    int special = 0, l = username.length();
+    //check length is 0 or more than 30
+    if (l == 0 || l > 30)
+        return 0;
+
+    for (int i = 0; i < l; i++)
+    {
+        char s = username.at(i);
+
+        //no spaces allowed
+        if (s == ' ')
+            return 0;
+
+        //characters other than alphabets and numbers
+        if (isalnum(s))
+            continue;
+        else
+        {
+            //periods and underscore allowed but only one
+            if (s == '_' || s == '.')
+            {
+                special++;
+                if (special > 1)
+                    return 0;
+            }
+            else
+                return 0;
+        }
+    }
+    return 1;
+}
+
 int main()
 {
-string a,b;
-cout<<"ENTER THE USER NAME => ";
-cin>>a;
-cout<<"\nREENTER THE USER NAME => ";
-cin>>b;
-if(a==b)
-cout<<"VALID USER NAME";
-else
-cout<<"INVALID USER NAME";
+    if (validates("Abhi123"))
+        cout << "Valid Username";
+    else
+        cout <<"Invalid Username";
+    return 0;
 }
